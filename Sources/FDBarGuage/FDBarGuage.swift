@@ -9,10 +9,14 @@
 //
 
 import Foundation
-import UIKit
+#if os(iOS) || os(watchOS)
+    import UIKit
+#elseif os(OSX)
+    import Cocoa
+#endif
 
 /// A view for showing a single number on an LED display
-@IBDesignable open class FDBarGauge: UIView {
+@IBDesignable open class FDBarGauge: QJView {
 
     /// Whether to maintain a view of local maximums
     @IBInspectable open var holdPeak = false
@@ -46,7 +50,11 @@ import UIKit
             }
             // Redraw the display?
             if redraw {
-                setNeedsDisplay()
+                #if os(iOS) || os(watchOS)
+                    setNeedsDisplay()
+                #elseif os(OSX)
+                    display()
+                #endif
             }
         }
     }
@@ -94,19 +102,19 @@ import UIKit
     }
 
     /// Outside border color
-    @IBInspectable open var outerBorderColor = UIColor.gray
+    @IBInspectable open var outerBorderColor = QJColor.gray
 
     /// Inside border color
-    @IBInspectable open var innerBorderColor = UIColor.black
+    @IBInspectable open var innerBorderColor = QJColor.black
 
     /// The rendered segment color before reaching the warning threshold
-    @IBInspectable open var normalColor = UIColor.green
+    @IBInspectable open var normalColor = QJColor.green
 
     /// The rendered segment color after reaching the warning threshold
-    @IBInspectable open var warningColor = UIColor.yellow
+    @IBInspectable open var warningColor = QJColor.yellow
 
     /// The rendered segment color after reaching the danger threshold
-    @IBInspectable open var dangerColor = UIColor.red
+    @IBInspectable open var dangerColor = QJColor.red
 
     fileprivate var onIdx = 0
     fileprivate var offIdx = 0
@@ -115,18 +123,23 @@ import UIKit
     fileprivate var dangerBarIdx = 8
 
     fileprivate func setup() {
-        clearsContextBeforeDrawing = false;
-        isOpaque = false;
-        backgroundColor = UIColor.black
+        #if os(iOS) || os(watchOS)
+            clearsContextBeforeDrawing = false
+            isOpaque = false
+            backgroundColor = QJColor.black
+        #elseif os(OSX)
+            wantsLayer = true
+        self.layer?.backgroundColor = QJColor.black.cgColor
+        #endif
     }
 
-    /// UIView initializer
+    /// QJView initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
 
-    /// UIView initializer
+    /// QJView initializer
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -136,7 +149,11 @@ import UIKit
     public func resetPeak() {
         peakValue = -.infinity
         peakBarIdx = -1
-        self.setNeedsDisplay()
+        #if os(iOS) || os(watchOS)
+            setNeedsDisplay()
+        #elseif os(OSX)
+            display()
+        #endif
     }
 
     /// Draw the gauge
@@ -165,10 +182,20 @@ import UIKit
         rectBar.size.width = isVertical ? rectBounds.size.width - 2 : CGFloat(barSize)
         rectBar.size.height = isVertical ? CGFloat(barSize) : rectBounds.size.height - 2
         // Get stuff needed for drawing
-        ctx = UIGraphicsGetCurrentContext()!
-        ctx.clear(self.bounds)
+        #if os(iOS) || os(watchOS)
+            ctx = UIGraphicsGetCurrentContext()!
+        #elseif os(OSX)
+            ctx = NSGraphicsContext.current!.cgContext
+        #endif
+            ctx.clear(self.bounds)
+
         // Fill background
-        ctx.setFillColor(backgroundColor!.cgColor)
+        #if os(iOS) || os(watchOS)
+            ctx.setFillColor(backgroundColor!.cgColor)
+        #elseif os(OSX)
+            ctx.setFillColor(layer!.backgroundColor!)
+        #endif
+
         ctx.fill(rectBounds)
         // Draw LED bars
         ctx.setStrokeColor(innerBorderColor.cgColor)
@@ -189,7 +216,7 @@ import UIKit
             ctx.addRect(rectBar)
             ctx.strokePath()
             // Determine color of bar
-            var clrFill: UIColor = normalColor
+            var clrFill: QJColor = normalColor
             if dangerBarIdx >= 0 && iX >= dangerBarIdx {
                 clrFill = dangerColor
             }
@@ -215,7 +242,7 @@ import UIKit
     }
 
     /// Draw one of the bar segments inside the gauge
-    fileprivate func drawBar(_ a_ctx: CGContext, withRect a_rect: CGRect, andColor a_clr: UIColor, lit a_fLit: Bool) {
+    fileprivate func drawBar(_ a_ctx: CGContext, withRect a_rect: CGRect, andColor a_clr: QJColor, lit a_fLit: Bool) {
         // Is the bar lit?
         if a_fLit {
             // Are we doing radial gradient fills?
@@ -225,13 +252,20 @@ import UIKit
                 let locations: [CGFloat] = [0.0, 0.5]
                 var aComponents = [CGFloat]()
                 let clr: CGColor = a_clr.cgColor
-                // Set up color components from passed UIColor object
+                // Set up color components from passed QJColor object
                 if clr.numberOfComponents == 4 {
                     let ci = CIColor(color: a_clr)
-                    aComponents.append(ci.red)
-                    aComponents.append(ci.green)
-                    aComponents.append(ci.blue)
-                    aComponents.append(ci.alpha)
+                    #if os(iOS) || os(watchOS)
+                        aComponents.append(ci.red)
+                        aComponents.append(ci.green)
+                        aComponents.append(ci.blue)
+                        aComponents.append(ci.alpha)
+                    #elseif os(OSX)
+                        aComponents.append(ci?.red ?? 1.0)
+                        aComponents.append(ci?.green ?? 1.0)
+                        aComponents.append(ci?.blue ?? 1.0)
+                        aComponents.append(ci?.alpha ?? 0.5)
+                    #endif
                     // Calculate dark color of gradient
                     aComponents.append(aComponents[0] - ((aComponents[0] > 0.3) ? 0.3 : 0.0))
                     aComponents.append(aComponents[1] - ((aComponents[1] > 0.3) ? 0.3 : 0.0))
@@ -260,7 +294,12 @@ import UIKit
             // No, draw the bar as background color overlayed with a mostly
             // ... transparent version of the passed color
             let fillClr: CGColor = a_clr.cgColor.copy(alpha: 0.2)!
-            a_ctx.setFillColor(backgroundColor!.cgColor)
+            #if os(iOS) || os(watchOS)
+                a_ctx.setFillColor(backgroundColor!.cgColor)
+            #elseif os(OSX)
+                a_ctx.setFillColor(layer!.backgroundColor!)
+            #endif
+
             a_ctx.fill(a_rect)
             a_ctx.setFillColor(fillClr)
             a_ctx.fill(a_rect)
