@@ -11,8 +11,18 @@
 import Foundation
 #if os(iOS) || os(watchOS)
     import UIKit
+
+    public typealias QJViewController = UIViewController
+    public typealias QJColor = UIColor
+    public typealias QJFont = UIFont
+    public typealias QJView = UIView
 #elseif os(macOS)
     import Cocoa
+
+    public typealias QJViewController = NSViewController
+    public typealias QJColor = NSColor
+    public typealias QJFont = NSFont
+    public typealias QJView = NSView
 #endif
 
 /// A view for showing a single number on an LED display
@@ -156,6 +166,15 @@ import Foundation
         #endif
     }
 
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        #if os(iOS) || os(watchOS)
+            setNeedsDisplay()
+        #elseif os(macOS)
+            display()
+        #endif
+    }
+    
     /// Draw the gauge
     override open func draw(_ rect: CGRect) {
         var ctx: CGContext
