@@ -11,7 +11,7 @@
 import Foundation
 #if os(iOS) || os(watchOS)
     import UIKit
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 #endif
 
@@ -52,7 +52,7 @@ import Foundation
             if redraw {
                 #if os(iOS) || os(watchOS)
                     setNeedsDisplay()
-                #elseif os(OSX)
+                #elseif os(macOS)
                     display()
                 #endif
             }
@@ -127,7 +127,7 @@ import Foundation
             clearsContextBeforeDrawing = false
             isOpaque = false
             backgroundColor = QJColor.black
-        #elseif os(OSX)
+        #elseif os(macOS)
             wantsLayer = true
         self.layer?.backgroundColor = QJColor.black.cgColor
         #endif
@@ -151,7 +151,7 @@ import Foundation
         peakBarIdx = -1
         #if os(iOS) || os(watchOS)
             setNeedsDisplay()
-        #elseif os(OSX)
+        #elseif os(macOS)
             display()
         #endif
     }
@@ -184,7 +184,7 @@ import Foundation
         // Get stuff needed for drawing
         #if os(iOS) || os(watchOS)
             ctx = UIGraphicsGetCurrentContext()!
-        #elseif os(OSX)
+        #elseif os(macOS)
             ctx = NSGraphicsContext.current!.cgContext
         #endif
             ctx.clear(self.bounds)
@@ -192,7 +192,7 @@ import Foundation
         // Fill background
         #if os(iOS) || os(watchOS)
             ctx.setFillColor(backgroundColor!.cgColor)
-        #elseif os(OSX)
+        #elseif os(macOS)
             ctx.setFillColor(layer!.backgroundColor!)
         #endif
 
@@ -260,7 +260,7 @@ import Foundation
                         aComponents.append(ci.green)
                         aComponents.append(ci.blue)
                         aComponents.append(ci.alpha)
-                    #elseif os(OSX)
+                    #elseif os(macOS)
                         aComponents.append(ci?.red ?? 1.0)
                         aComponents.append(ci?.green ?? 1.0)
                         aComponents.append(ci?.blue ?? 1.0)
@@ -296,7 +296,7 @@ import Foundation
             let fillClr: CGColor = a_clr.cgColor.copy(alpha: 0.2)!
             #if os(iOS) || os(watchOS)
                 a_ctx.setFillColor(backgroundColor!.cgColor)
-            #elseif os(OSX)
+            #elseif os(macOS)
                 a_ctx.setFillColor(layer!.backgroundColor!)
             #endif
 

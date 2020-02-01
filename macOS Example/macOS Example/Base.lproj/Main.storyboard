@@ -709,43 +709,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="343"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView canDrawConcurrently="YES" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ie6-Hc-kxa" customClass="FDBarGauge" customModule="FDBarGuage">
+                            <customView canDrawConcurrently="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="ie6-Hc-kxa" customClass="FDBarGauge" customModule="FDBarGuage">
                                 <rect key="frame" x="119" y="270" width="325" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hwy-5l-dpI">
-                                <rect key="frame" x="71" y="19" width="329" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hwy-5l-dpI">
+                                <rect key="frame" x="71" y="19" width="331" height="19"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Xtt-IR-jmq"/>
                                 <connections>
                                     <action selector="sliderValueHasChanged:" target="XfG-lQ-9wD" id="U1b-MV-RFN"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ag3-mr-dUb">
-                                <rect key="frame" x="404" y="21" width="42" height="16"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ag3-mr-dUb">
+                                <rect key="frame" x="406" y="21" width="40" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="100.0" id="fVh-kj-3CP">
                                     <font key="font" size="14" name="HelveticaNeue"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cr-iu-RsP">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7cr-iu-RsP">
                                 <rect key="frame" x="117" y="311" width="114" height="16"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Default Horizontal" id="ipj-xe-Qas">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2I-qw-3tS" customClass="FDBarGauge" customModule="FDBarGuage">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="d2I-qw-3tS" customClass="FDBarGauge" customModule="FDBarGuage">
                                 <rect key="frame" x="20" y="44" width="32" height="259"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tt9-tv-eA0">
-                                <rect key="frame" x="18" y="21" width="46" height="16"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tt9-tv-eA0">
+                                <rect key="frame" x="18" y="21" width="38" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Value" id="RC0-sm-UFW">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -753,6 +747,28 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="ag3-mr-dUb" firstAttribute="leading" secondItem="Hwy-5l-dpI" secondAttribute="trailing" constant="8" id="5zd-71-bxY"/>
+                            <constraint firstItem="tt9-tv-eA0" firstAttribute="top" secondItem="d2I-qw-3tS" secondAttribute="bottom" constant="7" id="7CG-NL-iPz"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7cr-iu-RsP" secondAttribute="trailing" constant="20" symbolic="YES" id="ACX-Jx-q5W"/>
+                            <constraint firstItem="ie6-Hc-kxa" firstAttribute="trailing" secondItem="ag3-mr-dUb" secondAttribute="trailing" id="GvL-TU-drP"/>
+                            <constraint firstAttribute="trailing" secondItem="ie6-Hc-kxa" secondAttribute="trailing" constant="36" id="HnG-lA-ctc"/>
+                            <constraint firstItem="7cr-iu-RsP" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="I2c-UB-BFb"/>
+                            <constraint firstItem="ag3-mr-dUb" firstAttribute="baseline" secondItem="Hwy-5l-dpI" secondAttribute="baseline" id="LXd-BV-V9O"/>
+                            <constraint firstAttribute="bottom" secondItem="ag3-mr-dUb" secondAttribute="bottom" constant="21" id="Roa-LS-a5N"/>
+                            <constraint firstItem="Hwy-5l-dpI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tt9-tv-eA0" secondAttribute="trailing" constant="8" symbolic="YES" id="Vjp-2J-4QL"/>
+                            <constraint firstItem="7cr-iu-RsP" firstAttribute="leading" secondItem="ie6-Hc-kxa" secondAttribute="leading" id="Z5e-yC-mPr"/>
+                            <constraint firstItem="ie6-Hc-kxa" firstAttribute="leading" secondItem="d2I-qw-3tS" secondAttribute="trailing" constant="67" id="Z6I-Dh-BfB"/>
+                            <constraint firstItem="tt9-tv-eA0" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="b3S-iQ-Iq5"/>
+                            <constraint firstAttribute="bottom" secondItem="ie6-Hc-kxa" secondAttribute="bottom" constant="270" id="cFH-Ps-4tI"/>
+                            <constraint firstItem="7cr-iu-RsP" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="119" id="deU-0E-gTi"/>
+                            <constraint firstItem="ag3-mr-dUb" firstAttribute="baseline" secondItem="tt9-tv-eA0" secondAttribute="baseline" id="dit-Rq-PXl"/>
+                            <constraint firstItem="d2I-qw-3tS" firstAttribute="leading" secondItem="tt9-tv-eA0" secondAttribute="leading" id="koq-oD-SCV"/>
+                            <constraint firstItem="ie6-Hc-kxa" firstAttribute="top" secondItem="7cr-iu-RsP" secondAttribute="bottom" constant="9" id="mTS-ts-Sow"/>
+                            <constraint firstItem="Hwy-5l-dpI" firstAttribute="leading" secondItem="tt9-tv-eA0" secondAttribute="trailing" constant="19" id="r82-f5-g8M"/>
+                            <constraint firstItem="ag3-mr-dUb" firstAttribute="leading" secondItem="Hwy-5l-dpI" secondAttribute="trailing" constant="8" symbolic="YES" id="wgK-ru-Wvo"/>
+                            <constraint firstItem="d2I-qw-3tS" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="40" id="x6q-MW-31M"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="defaultBarGuage" destination="ie6-Hc-kxa" id="pMH-gU-Kcs"/>

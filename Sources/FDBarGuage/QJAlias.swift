@@ -1,9 +1,10 @@
 //
-//  File.swift
+//  QJAlias.swift
 //  
 //
 //  Created by Mike Manzo on 1/27/20.
 //
+
 
 #if os(iOS) || os(watchOS)
     import UIKit
@@ -13,7 +14,7 @@
     public typealias QJFont = UIFont
     public typealias QJView = UIView
     
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 
     public typealias QJViewController = NSViewController
