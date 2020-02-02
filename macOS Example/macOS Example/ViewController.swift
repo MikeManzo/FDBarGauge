@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import FDBarGuage
 
 class ViewController: NSViewController {
     @IBOutlet weak var defaultBarGuage: FDBarGauge!

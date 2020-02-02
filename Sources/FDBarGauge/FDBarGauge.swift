@@ -17,7 +17,7 @@ import Foundation
     public typealias QJFont = UIFont
     public typealias QJView = UIView
 #elseif os(macOS)
-    import Cocoa
+    import AppKit
 
     public typealias QJViewController = NSViewController
     public typealias QJColor = NSColor
@@ -26,19 +26,26 @@ import Foundation
 #endif
 
 /// A view for showing a single number on an LED display
-@IBDesignable open class FDBarGauge: QJView {
+@IBDesignable
+open class FDBarGauge: QJView {
 
     /// Whether to maintain a view of local maximums
-    @IBInspectable open var holdPeak = false
-
+    @IBInspectable open var holdPeak: Bool = false {
+        didSet { updateControl() }
+    }
+    
     /// This applies a gradient style to the rendering
-    @IBInspectable open var litEffect = true
-
+    @IBInspectable open var litEffect: Bool = true {
+        didSet { updateControl() }
+    }
+    
     /// If `true` then render top-to-bottom or right-to-left
-    @IBInspectable open var reverseDirection = false
-
+    @IBInspectable open var reverseDirection: Bool = false {
+        didSet { updateControl() }
+    }
+    
     /// The quantity to be rendered
-    @IBInspectable open var value = 0.0 {
+    @IBInspectable open var value: Double = 0.0 {
         didSet {
             var redraw = false
             // Point at which bars start lighting up
@@ -60,26 +67,28 @@ import Foundation
             }
             // Redraw the display?
             if redraw {
-                #if os(iOS) || os(watchOS)
-                    setNeedsDisplay()
-                #elseif os(macOS)
-                    display()
-                #endif
+                updateControl()
             }
         }
     }
 
     /// The local maximum for `value`
-    @IBInspectable open var peakValue = 0.0
-
+    @IBInspectable open var peakValue: Double = 0.0 {
+        didSet { updateControl() }
+    }
+    
     /// The highest possible amount for `value`
-    @IBInspectable open var maxLimit = 1.0
-
+    @IBInspectable open var maxLimit: Double = 1.0 {
+        didSet { updateControl() }
+    }
+    
     /// The lowest possible amount for `value`, must be less than `maxLimit`
-    @IBInspectable open var minLimit = 0.0
+    @IBInspectable open var minLimit: Double = 0.0 {
+        didSet { updateControl() }
+    }
 
     /// A quantity for `value` which will render in a special color
-    @IBInspectable open var warnThreshold = 0.6 {
+    @IBInspectable open var warnThreshold: Double = 0.6 {
         didSet {
             if !warnThreshold.isNaN && warnThreshold > 0.0 {
                 warningBarIdx = Int(warnThreshold * Double(numBars))
@@ -90,7 +99,7 @@ import Foundation
     }
 
     /// A quantity for `value` which will render in a special color
-    @IBInspectable open var dangerThreshold = 0.8 {
+    @IBInspectable open var dangerThreshold: Double = 0.8 {
         didSet {
             if !dangerThreshold.isNaN && dangerThreshold > 0.0 {
                 dangerBarIdx = Int(dangerThreshold * Double(numBars))
@@ -112,19 +121,29 @@ import Foundation
     }
 
     /// Outside border color
-    @IBInspectable open var outerBorderColor = QJColor.gray
-
+    @IBInspectable open var outerBorderColor: QJColor = QJColor.gray {
+        didSet { updateControl() }
+    }
+    
     /// Inside border color
-    @IBInspectable open var innerBorderColor = QJColor.black
-
+    @IBInspectable open var innerBorderColor: QJColor = QJColor.black {
+        didSet { updateControl() }
+    }
+    
     /// The rendered segment color before reaching the warning threshold
-    @IBInspectable open var normalColor = QJColor.green
-
+    @IBInspectable open var normalColor: QJColor = QJColor.green {
+        didSet { updateControl() }
+    }
+    
     /// The rendered segment color after reaching the warning threshold
-    @IBInspectable open var warningColor = QJColor.yellow
-
+    @IBInspectable open var warningColor: QJColor = QJColor.yellow {
+        didSet { updateControl() }
+    }
+    
     /// The rendered segment color after reaching the danger threshold
-    @IBInspectable open var dangerColor = QJColor.red
+    @IBInspectable open var dangerColor: QJColor = QJColor.red {
+        didSet { updateControl() }
+    }
 
     fileprivate var onIdx = 0
     fileprivate var offIdx = 0
@@ -132,6 +151,14 @@ import Foundation
     fileprivate var warningBarIdx = 6
     fileprivate var dangerBarIdx = 8
 
+    fileprivate func updateControl() {
+        #if os(iOS) || os(watchOS)
+            setNeedsDisplay()
+        #elseif os(macOS)
+            display()
+        #endif
+    }
+    
     fileprivate func setup() {
         #if os(iOS) || os(watchOS)
             clearsContextBeforeDrawing = false

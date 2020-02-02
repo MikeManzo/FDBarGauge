@@ -711,6 +711,11 @@
                         <subviews>
                             <customView canDrawConcurrently="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="ie6-Hc-kxa" customClass="FDBarGauge" customModule="FDBarGuage">
                                 <rect key="frame" x="119" y="270" width="325" height="32"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="numBars">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </customView>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hwy-5l-dpI">
                                 <rect key="frame" x="71" y="19" width="331" height="19"/>

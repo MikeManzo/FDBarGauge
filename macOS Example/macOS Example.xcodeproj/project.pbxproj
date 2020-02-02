@@ -13,7 +13,7 @@
 		271B942923DF593B00786E34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 271B942723DF593B00786E34 /* Main.storyboard */; };
 		271B943523DF593B00786E34 /* macOS_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B943423DF593B00786E34 /* macOS_ExampleTests.swift */; };
 		271B944023DF593B00786E34 /* macOS_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B943F23DF593B00786E34 /* macOS_ExampleUITests.swift */; };
-		2776B02F23E5F799006E7B55 /* FDBarGuage in Frameworks */ = {isa = PBXBuildFile; productRef = 2776B02E23E5F799006E7B55 /* FDBarGuage */; };
+		2776B03223E5FD62006E7B55 /* FDBarGuage in Frameworks */ = {isa = PBXBuildFile; productRef = 2776B03123E5FD62006E7B55 /* FDBarGuage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2776B02F23E5F799006E7B55 /* FDBarGuage in Frameworks */,
+				2776B03223E5FD62006E7B55 /* FDBarGuage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 			);
 			name = "macOS Example";
 			packageProductDependencies = (
-				2776B02E23E5F799006E7B55 /* FDBarGuage */,
+				2776B03123E5FD62006E7B55 /* FDBarGuage */,
 			);
 			productName = "macOS Example";
 			productReference = 271B941E23DF593A00786E34 /* macOS Example.app */;
@@ -226,7 +226,7 @@
 			);
 			mainGroup = 271B941523DF593A00786E34;
 			packageReferences = (
-				2776B02D23E5F799006E7B55 /* XCRemoteSwiftPackageReference "FDBarGauge" */,
+				2776B03023E5FD62006E7B55 /* XCRemoteSwiftPackageReference "FDBarGauge" */,
 			);
 			productRefGroup = 271B941F23DF593A00786E34 /* Products */;
 			projectDirPath = "";
@@ -439,6 +439,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "macOS Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -446,6 +447,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "quantumJoker.macOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
 			};
 			name = Debug;
 		};
@@ -457,6 +460,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "macOS Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -464,6 +468,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "quantumJoker.macOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
 			};
 			name = Release;
 		};
@@ -589,7 +595,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2776B02D23E5F799006E7B55 /* XCRemoteSwiftPackageReference "FDBarGauge" */ = {
+		2776B03023E5FD62006E7B55 /* XCRemoteSwiftPackageReference "FDBarGauge" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MikeManzo/FDBarGauge";
 			requirement = {
@@ -600,9 +606,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2776B02E23E5F799006E7B55 /* FDBarGuage */ = {
+		2776B03123E5FD62006E7B55 /* FDBarGuage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2776B02D23E5F799006E7B55 /* XCRemoteSwiftPackageReference "FDBarGauge" */;
+			package = 2776B03023E5FD62006E7B55 /* XCRemoteSwiftPackageReference "FDBarGauge" */;
 			productName = FDBarGuage;
 		};
 /* End XCSwiftPackageProductDependency section */
